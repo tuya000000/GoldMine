@@ -17,5 +17,6 @@ public class Launcher {
 		// TODO Auto-generated method stub
 		SampleWindow app = new SampleWindow();
 		app.setVisible(true);
+		
 	}
 }
