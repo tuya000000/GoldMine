@@ -3,13 +3,12 @@
  */
 package UnitTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.Component;
 import java.awt.Container;
 
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
 import org.junit.After;
 import org.junit.AfterClass;
