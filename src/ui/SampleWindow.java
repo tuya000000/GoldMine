@@ -23,13 +23,13 @@ public class SampleWindow extends JFrame {
 		this.add(getJTextField(), null);
 		this.add(getJButton(), null);
 		this.setTitle("HelloWorld");
-
 	}
 
 	/*
 	 * ==========================================================================
 	 * Private Methods
-	 * ==========================================================================
+	 * ==========================================================
+	 * ================
 	 */
 	private javax.swing.JLabel getJLabel() {
 

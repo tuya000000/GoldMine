@@ -1,4 +1,4 @@
-import ui.SampleWindow;
+import ui.GoldMineWindowControl;
 
 /**
  * 
@@ -15,7 +15,9 @@ public class Launcher {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		SampleWindow app = new SampleWindow();
-		app.setVisible(true);
+		GoldMineWindowControl app = new GoldMineWindowControl();
+		app.run();
+		app.clear();
+		app = null;
 	}
 }
