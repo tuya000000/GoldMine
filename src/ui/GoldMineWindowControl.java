@@ -13,6 +13,7 @@ public class GoldMineWindowControl extends BaseWindowControl {
 	 * 
 	 */
 	public GoldMineWindowControl() {
+		// TODO Auto-generated constructor stub
 		setView(new GoldMineWindowView());
 	}
 

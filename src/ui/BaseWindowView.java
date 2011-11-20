@@ -23,7 +23,7 @@ public class BaseWindowView extends JFrame {
 	 * @throws HeadlessException
 	 */
 	public BaseWindowView() throws HeadlessException {
-		buildContentArea();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class BaseWindowView extends JFrame {
 	 */
 	public BaseWindowView(GraphicsConfiguration gc) {
 		super(gc);
-		buildContentArea();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class BaseWindowView extends JFrame {
 	 */
 	public BaseWindowView(String title) throws HeadlessException {
 		super(title);
-		buildContentArea();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class BaseWindowView extends JFrame {
 	 */
 	public BaseWindowView(String title, GraphicsConfiguration gc) {
 		super(title, gc);
-		buildContentArea();
+		// TODO Auto-generated constructor stub
 	}
 
 	/*
