@@ -130,7 +130,7 @@ public class TradeRecordTable extends DefaultTableModel {
 		switch (col) {
 		case COL_TRADE_TIME: {
 			Date date = new Date(tr.getTime());
-			return date.toGMTString();
+			return date.toLocaleString();
 		}
 		case COL_TRADE_PRISE:
 			return Helper.getCurrencyString(Math.abs(tr.getPrise()));
