@@ -43,6 +43,12 @@ public class GoldMineWindowControl extends BaseWindowControl {
 	 * Interface method.Refresh the page with models
 	 */
 	@Override
+	public void clear() {
+		DataRoot.destory();
+		super.clear();
+	}
+
+	@Override
 	public void refresh() {
 		getView().setModel(DataRoot.inst().getTradeRecords());
 	}
