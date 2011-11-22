@@ -19,6 +19,8 @@ public class BaseWindowView extends JFrame {
 	 */
 	private static final long serialVersionUID = 6187945577835791998L;
 
+	private BaseWindowControl myControl;
+
 	/**
 	 * @throws HeadlessException
 	 */
@@ -53,8 +55,8 @@ public class BaseWindowView extends JFrame {
 	}
 
 	/*
-	 * ==================================================================== Base
-	 * Methods
+	 * ========================================================================
+	 * Base Methods
 	 */
 
 	protected void buildContentArea() {
@@ -62,5 +64,24 @@ public class BaseWindowView extends JFrame {
 
 	public void clear() {
 
+	}
+
+	public void setModel(Object... objs) {
+
+	}
+
+	/**
+	 * @return the myControl
+	 */
+	public BaseWindowControl getControl() {
+		return myControl;
+	}
+
+	/**
+	 * @param myControl
+	 *            the myControl to set
+	 */
+	public void setControl(BaseWindowControl myControl) {
+		this.myControl = myControl;
 	}
 }

@@ -4,11 +4,19 @@
 package ui;
 
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+import model.TradeRecord;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -16,7 +24,7 @@ import net.miginfocom.swing.MigLayout;
  * 
  */
 public class GoldMineWindowView extends BaseWindowView implements
-		TableModelListener {
+		TableModelListener, ActionListener {
 	/**
 	 * 
 	 */
@@ -25,26 +33,10 @@ public class GoldMineWindowView extends BaseWindowView implements
 	private JTable myTable;
 	private TradeRecordTable myTradeRecordTableModel;
 
+	private JButton myReadFileButton;
+
 	public GoldMineWindowView() {
 		super();
-	}
-
-	/**
-	 * 
-	 */
-	@Override
-	protected void buildContentArea() {
-		this.setTitle("Gold Mine");
-		this.setSize(800, 600);
-		Container mainPane = getContentPane();
-		mainPane.setLayout(new MigLayout("", "12[]6[]"));
-		mainPane.add(buildTable(), "wrap");
-	}
-
-	@Override
-	public void clear() {
-		myTable = null;
-		myTradeRecordTableModel = null;
 	}
 
 	/**
@@ -57,20 +49,36 @@ public class GoldMineWindowView extends BaseWindowView implements
 
 	/**
 	 * ========================================================================
-	 * Private Methods
+	 * Interface Methods
 	 */
+	/**
+	 * 
+	 */
+	@Override
+	protected void buildContentArea() {
+		this.setTitle("Gold Mine");
+		this.setSize(800, 600);
+		Container mainPane = getContentPane();
+		mainPane.setLayout(new MigLayout("", "12[]6[]"));
+		mainPane.add(buildTable(), "wrap");
+		mainPane.add(buildReadFileButton(), "wrap");
 
-	private JTable buildTable() {
-		myTable = new JTable();
-		myTradeRecordTableModel = new TradeRecordTable(myTable);
-		myTradeRecordTableModel.addTrade(System.currentTimeMillis(), 10, 356.3);
-		myTradeRecordTableModel.addTrade(System.currentTimeMillis(), 10, 352.3);
-		myTradeRecordTableModel
-				.addTrade(System.currentTimeMillis(), 10, -350.4);
-		myTradeRecordTableModel.addTrade(System.currentTimeMillis(), 10, -366);
-		myTradeRecordTableModel.addTableModelListener(this);
+	}
 
-		return myTable;
+	/**
+	 * 
+	 */
+	@Override
+	public void clear() {
+		myTable = null;
+		myTradeRecordTableModel = null;
+	}
+
+	@Override
+	public void setModel(Object... objs) {
+		@SuppressWarnings("unchecked")
+		List<TradeRecord> trs = (List<TradeRecord>) objs[0];
+		refreshTableModel(trs);
 	}
 
 	@Override
@@ -78,4 +86,52 @@ public class GoldMineWindowView extends BaseWindowView implements
 		// TODO Auto-generated method stub
 		System.out.println("TableChanged");
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent evt) {
+		if (evt.getSource().equals(myReadFileButton)) {
+			readTradeRecordsFromFile();
+		}
+	}
+
+	/**
+	 * ========================================================================
+	 * Private Methods
+	 */
+
+	private JTable buildTable() {
+		myTable = new JTable();
+		myTradeRecordTableModel = new TradeRecordTable(myTable);
+		myTradeRecordTableModel.addTableModelListener(this);
+		myTradeRecordTableModel.addTrade(System.currentTimeMillis(), 19, -330);
+		return myTable;
+	}
+
+	private void refreshTableModel(List<TradeRecord> trs) {
+		if (myTradeRecordTableModel == null) {
+			myTradeRecordTableModel = new TradeRecordTable(myTable);
+		}
+		myTradeRecordTableModel.setDatas(trs);
+	}
+
+	private JButton buildReadFileButton() {
+		myReadFileButton = new JButton();
+		myReadFileButton.setText("Read Trade Records...");
+		myReadFileButton.addActionListener(this);
+		return myReadFileButton;
+	}
+
+	private void readTradeRecordsFromFile() {
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				"TradeRecords in CSV", "csv");
+		chooser.setFileFilter(filter);
+		int returnVal = chooser.showOpenDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File csvFile = chooser.getSelectedFile();
+			((GoldMineWindowControl) getControl())
+					.readTradeRecordsFromCSVFile(csvFile);
+		}
+	}
+
 }

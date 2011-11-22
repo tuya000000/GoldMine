@@ -19,6 +19,13 @@ public class BaseWindowControl {
 	}
 
 	/**
+	 * Interface method.Refresh the page with models
+	 */
+	public void refresh() {
+
+	}
+
+	/**
 	 * @return the myView
 	 */
 	public BaseWindowView getView() {
@@ -31,6 +38,7 @@ public class BaseWindowControl {
 	 */
 	public void setView(BaseWindowView view) {
 		this.myView = view;
+		view.setControl(this);
 	}
 
 	public void clear() {
