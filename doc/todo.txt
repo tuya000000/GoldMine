@@ -8,3 +8,4 @@ TradeRecord table should show a header row.
 User can delete a record from TradeRecord table.
 App must be finished correctly(when main windows is closed, all threads should be terminated).
 App can provide an analysis view. 
+TradeRecord table should show different font/cell background color for buy and sell trades.
