@@ -146,7 +146,8 @@ public class TradeRecordTable extends DefaultTableModel {
 				return "无效交易";
 			}
 		}
-		case COL_TRADE_MONEY:
+            break;
+        case COL_TRADE_MONEY:
 			return Helper.getCurrencyString(tr.getMoney());
 		default:
 		}
