@@ -9,9 +9,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -105,16 +108,19 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
      * ======================================================================== Private Methods
      */
 
-    private JPanel buildTablePanel()
+    private JComponent buildTablePanel()
     {
         JPanel tablePanel = new JPanel( new MigLayout( "ins 0 0 0 0" ) );
         myTable = new JTable();
         myTradeRecordTableModel = new TradeRecordTable( myTable );
         myTradeRecordTableModel.addTableModelListener( this );
-        myTradeRecordTableModel.addTrade( System.currentTimeMillis(), 19, -330 );
         tablePanel.add( myTable.getTableHeader(), "wrap" );
-        tablePanel.add( myTable, "wrap" );
-        return tablePanel;
+        JScrollPane scrollPane = new JScrollPane( myTable );
+        scrollPane.setViewportBorder( BorderFactory.createEmptyBorder() );
+        scrollPane.setSize( 300, 400 );
+        tablePanel.add( scrollPane, "wrap" );
+
+        return scrollPane;
     }
 
     private void refreshTableModel( List<TradeRecord> trs )
