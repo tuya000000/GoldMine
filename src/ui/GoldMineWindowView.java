@@ -76,8 +76,10 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
     @Override
     public void clear()
     {
-        myTable = null;
-        myTradeRecordTableModel = null;
+        if( myTradeRecordTableModel != null )
+        {
+            myTradeRecordTableModel.clear();
+        }
     }
 
     @Override
@@ -86,6 +88,21 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         @SuppressWarnings( "unchecked" )
         List<TradeRecord> trs = ( List<TradeRecord> ) objs[0];
         refreshTableModel( trs );
+    }
+
+    /**
+     * Destructor for this class. Clears object references and removes listeners.
+     */
+    @Override
+    public void dispose()
+    {
+        clear();
+        if( myTradeRecordTableModel != null )
+        {
+            myTradeRecordTableModel.destroy();
+        }
+        myTradeRecordTableModel = null;
+        super.dispose();
     }
 
     @Override
