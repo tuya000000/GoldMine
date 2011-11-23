@@ -4,7 +4,7 @@ TradeRecordParser must be able to parse the stirng in "yyyy-mm-dd hh:mm:ss" form
 TradeRecord table should show a scroll bar when it's too long(more than 15 records).
 App must be able to parse trade records file in XML format.
 App must be able to save date model file.
-TradeRecord table should show a header row.
+-TradeRecord table should show a header row.
 User can delete a record from TradeRecord table.
 App must be finished correctly(when main windows is closed, all threads should be terminated).
 App can provide an analysis view. 
