@@ -19,7 +19,7 @@ import util.Helper;
  */
 public class TradeRecordTable extends DefaultTableModel
 {
-    private final List<TradeRecord> myRecords = new ArrayList<TradeRecord>();
+    private List<TradeRecord> myRecords = new ArrayList<TradeRecord>();
 
     private final int COL_TRADE_TIME = 0;
 
@@ -203,6 +203,24 @@ public class TradeRecordTable extends DefaultTableModel
         myRecords.clear();
         myRecords.addAll( rList );
         refresh();
+    }
+
+    /**
+     * Clears the TableModel data
+     */
+    public void clear()
+    {
+        myRecords.clear();
+        fireTableDataChanged();
+    }
+
+    /**
+     * Destructor for this class.
+     */
+    public void destroy()
+    {
+        clear();
+        myRecords = null;
     }
 
     public void addTrade( TradeRecord tr )
