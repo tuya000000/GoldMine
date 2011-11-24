@@ -3,10 +3,13 @@
  */
 package ui;
 
+import service.GMService;
+import service.GlobalServices;
+
 /**
  * @author tuya
  */
-public class BaseWindowControl
+public class BaseWindowControl implements GMService
 {
     private BaseWindowView myView;
 
@@ -15,12 +18,13 @@ public class BaseWindowControl
 	 */
     public BaseWindowControl()
     {
-        // TODO Auto-generated constructor stub
+        GlobalServices.registerService( this );
     }
 
     /**
      * Interface method.Refresh the page with models
      */
+    @Override
     public void refresh()
     {
 
@@ -56,12 +60,14 @@ public class BaseWindowControl
      * controlling, sets the flag that tells the controller has been destroyed. After destroying the controller can't be
      * used anymore. Using a destroyed controller has unpredictable consequences.
      */
-    public void destroy()
+    public void destory()
     {
         if( getView() != null )
         {
             getView().dispose();
         }
         myView = null;
+        GlobalServices.unregisterService( this );
     }
+
 }

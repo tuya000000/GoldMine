@@ -1,3 +1,4 @@
+import service.GlobalServices;
 import ui.GoldMineWindowControl;
 
 /**
@@ -15,9 +16,10 @@ public class Launcher
      */
     public static void main( String[] args )
     {
-        GoldMineWindowControl app = new GoldMineWindowControl();
+        GoldMineWindowControl app = GlobalServices.activeService( GoldMineWindowControl.class );
         app.run();
-        app.destroy();
         app = null;
+        GlobalServices.stopAllServices();
     }
+
 }
