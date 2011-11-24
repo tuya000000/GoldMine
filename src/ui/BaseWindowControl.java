@@ -8,7 +8,6 @@ package ui;
  */
 public class BaseWindowControl
 {
-
     private BaseWindowView myView;
 
     /**

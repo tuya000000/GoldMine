@@ -18,50 +18,59 @@ import org.xml.sax.SAXException;
 
 /**
  * @author tuya
- * 
  */
-public class XMLFileReader {
+public class XMLFileReader
+{
 
-	/**
+    /**
 	 * 
 	 */
-	public XMLFileReader() {
-		// TODO Auto-generated constructor stub
-	}
+    public XMLFileReader()
+    {
+        // TODO Auto-generated constructor stub
+    }
 
-	public static void readXml(String fileName) {
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory
-					.newInstance();
-			DocumentBuilder db = factory.newDocumentBuilder();
-			Document doc = db.parse(new File(fileName));
-			Element elmtInfo = doc.getDocumentElement();
-			NodeList nodes = elmtInfo.getChildNodes();
-			int m = 1;
-			for (int i = 0; i < nodes.getLength(); i++) {
-				Node result = nodes.item(i);
-				if (result.getNodeType() == Node.ELEMENT_NODE
-						&& result.getNodeName().equals("txtbook")) {
-					NodeList ns = result.getChildNodes();
+    public static void readXml( String fileName )
+    {
+        try
+        {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = factory.newDocumentBuilder();
+            Document doc = db.parse( new File( fileName ) );
+            Element elmtInfo = doc.getDocumentElement();
+            NodeList nodes = elmtInfo.getChildNodes();
+            int m = 1;
+            for( int i = 0; i < nodes.getLength(); i++ )
+            {
+                Node result = nodes.item( i );
+                if( result.getNodeType() == Node.ELEMENT_NODE && result.getNodeName().equals( "txtbook" ) )
+                {
+                    NodeList ns = result.getChildNodes();
 
-					for (int j = 0; j < ns.getLength(); j++) {
-						Node record = ns.item(j);
+                    for( int j = 0; j < ns.getLength(); j++ )
+                    {
+                        Node record = ns.item( j );
 
-						if (record.getNodeType() == Node.ELEMENT_NODE
-								&& record.getNodeName().equals("name")) {
-							System.out.println(m + ": "
-									+ record.getTextContent());
-							m++;
-						}
-					}
-				}
-			}
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+                        if( record.getNodeType() == Node.ELEMENT_NODE && record.getNodeName().equals( "name" ) )
+                        {
+                            System.out.println( m + ": " + record.getTextContent() );
+                            m++;
+                        }
+                    }
+                }
+            }
+        }
+        catch( ParserConfigurationException e )
+        {
+            e.printStackTrace();
+        }
+        catch( SAXException e )
+        {
+            e.printStackTrace();
+        }
+        catch( IOException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }
