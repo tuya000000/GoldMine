@@ -27,6 +27,8 @@ package service;
  */
 public interface GMService
 {
+    void activeNotify();
+
     void refresh();
 
     /**

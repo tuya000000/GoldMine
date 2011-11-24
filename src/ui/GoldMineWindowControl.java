@@ -28,7 +28,6 @@ public class GoldMineWindowControl extends BaseWindowControl
 
     public void run()
     {
-        getView().setVisible( true );
         while( !isClosed() )
         {
 

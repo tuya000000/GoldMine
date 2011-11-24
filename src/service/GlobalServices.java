@@ -51,6 +51,7 @@ public class GlobalServices
             {
                 service = T.newInstance();
             }
+            service.activeNotify();
             return ( T ) service;
         }
         catch( InstantiationException e )

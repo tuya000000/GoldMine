@@ -60,6 +60,7 @@ public class BaseWindowControl implements GMService
      * controlling, sets the flag that tells the controller has been destroyed. After destroying the controller can't be
      * used anymore. Using a destroyed controller has unpredictable consequences.
      */
+    @Override
     public void destory()
     {
         if( getView() != null )
@@ -68,6 +69,12 @@ public class BaseWindowControl implements GMService
         }
         myView = null;
         GlobalServices.unregisterService( this );
+    }
+
+    @Override
+    public void activeNotify()
+    {
+        getView().setVisible( true );
     }
 
 }
