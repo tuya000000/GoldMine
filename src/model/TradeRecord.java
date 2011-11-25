@@ -27,7 +27,7 @@ public class TradeRecord extends ModelObject
 	 */
     public TradeRecord()
     {
-        // TODO Auto-generated constructor stub
+
     }
 
     /**

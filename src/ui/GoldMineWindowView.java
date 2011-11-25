@@ -37,7 +37,7 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
 
     private JTable myTable;
 
-    private TradeRecordTable myTradeRecordTableModel;
+    private TradeRecordTableModel myTradeRecordTableModel;
 
     private JButton myReadFileButton;
 
@@ -133,15 +133,16 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         }
     }
 
-    /**
-     * ======================================================================== Private Methods
+    /*
+     * ========================================================================
+     * Private Methods
      */
 
     private JComponent buildTablePanel()
     {
         JPanel tablePanel = new JPanel( new MigLayout( "ins 0 0 0 0" ) );
         myTable = new JTable();
-        myTradeRecordTableModel = new TradeRecordTable( myTable );
+        myTradeRecordTableModel = new TradeRecordTableModel( myTable );
         myTradeRecordTableModel.addTableModelListener( this );
         tablePanel.add( myTable.getTableHeader(), "wrap" );
         JScrollPane scrollPane = new JScrollPane( myTable );
@@ -156,7 +157,7 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
     {
         if( myTradeRecordTableModel == null )
         {
-            myTradeRecordTableModel = new TradeRecordTable( myTable );
+            myTradeRecordTableModel = new TradeRecordTableModel( myTable );
         }
         myTradeRecordTableModel.setModel( trs );
     }

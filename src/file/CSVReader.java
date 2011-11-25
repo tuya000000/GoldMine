@@ -26,7 +26,9 @@ public class CSVReader
         LineNumberReader lnr = new LineNumberReader( reader );
         for( String oneLineString = lnr.readLine(); oneLineString != null; oneLineString = lnr.readLine() )
         {
-            trs.add( TradeRecordParser.parseCSVFormatString( oneLineString ) );
+            TradeRecord tr = TradeRecordParser.parseCSVFormatString( oneLineString );
+            tr.setObjectId( "TR-" + ( trs.size() + 1 ) );
+            trs.add( tr );
         }
         return trs;
     }

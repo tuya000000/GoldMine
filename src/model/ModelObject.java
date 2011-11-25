@@ -9,12 +9,29 @@ package model;
 public class ModelObject
 {
 
+    private String myObjectId;
+
     /**
 	 * 
 	 */
     public ModelObject()
     {
-        // TODO Auto-generated constructor stub
+
     }
 
+    /**
+     * @param objectId the objectId to set
+     */
+    public void setObjectId( String objectId )
+    {
+        myObjectId = objectId;
+    }
+
+    /**
+     * @return the objectId
+     */
+    public String getObjectId()
+    {
+        return myObjectId;
+    }
 }

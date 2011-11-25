@@ -3,16 +3,22 @@
  */
 package util;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author tuya
  */
 public class Helper
 {
+    static Logger logger = Logger.getLogger( "Util" );
+
     public final static String CURRENCY_UNIT = "￥";
 
     public static String getCurrencyString( double money )
     {
-        return CURRENCY_UNIT + money;
+        if( money >= 0 )
+            return CURRENCY_UNIT + money;
+        return "-" + CURRENCY_UNIT + Math.abs( money );
     }
 
     public static double getCurrencyValue( String str )
@@ -22,5 +28,20 @@ public class Helper
             return Double.valueOf( str.split( CURRENCY_UNIT )[1] );
         }
         return Double.valueOf( str );
+    }
+
+    public static String getObjectPrefix( String objectId )
+    {
+        if( objectId == null )
+        {
+            logger.error( "Invalid object id: null" );
+            return null;
+        }
+        String[] idParts = objectId.split( "-" );
+        if( idParts[0] == null || idParts[0].isEmpty() )
+        {
+            logger.error( "Invalid object id:" + objectId );
+        }
+        return idParts[0];
     }
 }

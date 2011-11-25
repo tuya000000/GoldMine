@@ -17,7 +17,7 @@ import util.Helper;
 /**
  * @author tuya
  */
-public class TradeRecordTable extends DefaultTableModel
+public class TradeRecordTableModel extends DefaultTableModel
 {
     private List<TradeRecord> myRecords = new ArrayList<TradeRecord>();
 
@@ -66,14 +66,14 @@ public class TradeRecordTable extends DefaultTableModel
 	 */
     private static final long serialVersionUID = -3117841222887703411L;
 
-    public TradeRecordTable( JTable table )
+    public TradeRecordTableModel( JTable table )
     {
         setTable( table );
         table.setModel( this );
         initColumns();
     }
 
-    public TradeRecordTable( Object[][] objects, String[] headers )
+    public TradeRecordTableModel( Object[][] objects, String[] headers )
     {
         super( objects, headers );
     }
