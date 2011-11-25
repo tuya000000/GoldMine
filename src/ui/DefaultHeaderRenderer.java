@@ -26,6 +26,11 @@ public class DefaultHeaderRenderer extends DefaultTableCellRenderer
 {
 
     /**
+	 * 
+	 */
+    private static final long serialVersionUID = -8257369080900362667L;
+
+    /**
      * Constructor. Sets horizontal alignment to center and border to
      * <code>UIManager.getBorder( "TableHeader.cellBorder" )</code>.
      */
@@ -48,6 +53,7 @@ public class DefaultHeaderRenderer extends DefaultTableCellRenderer
      * @return Component used for drawing the cell.
      */
 
+    @Override
     public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus,
                                                     int row, int column )
     {

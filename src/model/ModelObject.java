@@ -5,15 +5,16 @@ package model;
 
 /**
  * @author tuya
- *
  */
-public class ModelObject {
+public class ModelObject
+{
 
-	/**
+    /**
 	 * 
 	 */
-	public ModelObject() {
-		// TODO Auto-generated constructor stub
-	}
+    public ModelObject()
+    {
+        // TODO Auto-generated constructor stub
+    }
 
 }

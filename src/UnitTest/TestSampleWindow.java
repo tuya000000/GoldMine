@@ -20,49 +20,54 @@ import ui.SampleWindow;
 
 /**
  * @author tuya
- * 
  */
-public class TestSampleWindow {
-	static SampleWindow unit;
+public class TestSampleWindow
+{
+    static SampleWindow unit;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
+    /**
+     * @throws java.lang.Exception
+     */
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception
+    {
+    }
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+    /**
+     * @throws java.lang.Exception
+     */
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception
+    {
+    }
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		unit = new SampleWindow();
-	}
+    /**
+     * @throws java.lang.Exception
+     */
+    @Before
+    public void setUp() throws Exception
+    {
+        unit = new SampleWindow();
+    }
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
+    /**
+     * @throws java.lang.Exception
+     */
+    @After
+    public void tearDown() throws Exception
+    {
+    }
 
-	@Test
-	public void testComponetCount() {
-		for (Component comp : unit.getRootPane().getComponents()) {
-			if (comp instanceof JLayeredPane) {
-				assertEquals(3,
-						((Container) ((Container) comp).getComponent(0))
-								.getComponentCount());
-			}
-		}
-	}
+    @Test
+    public void testComponetCount()
+    {
+        for( Component comp : unit.getRootPane().getComponents() )
+        {
+            if( comp instanceof JLayeredPane )
+            {
+                assertEquals( 3, ( ( Container ) ( ( Container ) comp ).getComponent( 0 ) ).getComponentCount() );
+            }
+        }
+    }
 
 }

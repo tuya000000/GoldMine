@@ -22,6 +22,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.TradeRecord;
 import net.miginfocom.swing.MigLayout;
+import service.GlobalServices;
+import ui.analysis.TradePairAnalysisWindowControl;
 
 /**
  * @author tuya
@@ -39,6 +41,8 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
 
     private JButton myReadFileButton;
 
+    private JButton myTradePairAnalysisButton;
+
     public GoldMineWindowView()
     {
         super();
@@ -52,8 +56,9 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         return !this.isVisible();
     }
 
-    /**
-     * ======================================================================== Interface Methods
+    /*
+     * ========================================================================
+     * Interface Methods
      */
     /**
 	 * 
@@ -66,8 +71,11 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         Container mainPane = getContentPane();
         mainPane.setLayout( new MigLayout( "", "12[]6[]" ) );
         mainPane.add( buildTablePanel(), "wrap" );
-        mainPane.add( buildReadFileButton(), "wrap" );
-
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout( new MigLayout( "", "0[]12[]" ) );
+        buttonPanel.add( buildReadFileButton(), "" );
+        buttonPanel.add( buildTradePairAnalysisButton(), "wrap" );
+        mainPane.add( buttonPanel, "wrap" );
     }
 
     /**
@@ -119,6 +127,10 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         {
             readTradeRecordsFromFile();
         }
+        else if( evt.getSource().equals( myTradePairAnalysisButton ) )
+        {
+            openTradePairAnalysisWindow();
+        }
     }
 
     /**
@@ -155,6 +167,19 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         myReadFileButton.setText( "Read Trade Records..." );
         myReadFileButton.addActionListener( this );
         return myReadFileButton;
+    }
+
+    private JButton buildTradePairAnalysisButton()
+    {
+        myTradePairAnalysisButton = new JButton();
+        myTradePairAnalysisButton.setText( "交易配对分析..." );
+        myTradePairAnalysisButton.addActionListener( this );
+        return myTradePairAnalysisButton;
+    }
+
+    private void openTradePairAnalysisWindow()
+    {
+        GlobalServices.activeService( TradePairAnalysisWindowControl.class );
     }
 
     private void readTradeRecordsFromFile()

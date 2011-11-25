@@ -20,6 +20,7 @@ public class GoldMineWindowControl extends BaseWindowControl
 	 */
     public GoldMineWindowControl()
     {
+        super();
         DataRoot.initialize();
 
         setView( new GoldMineWindowView() );
@@ -27,7 +28,6 @@ public class GoldMineWindowControl extends BaseWindowControl
 
     public void run()
     {
-        getView().setVisible( true );
         while( !isClosed() )
         {
 
@@ -39,8 +39,9 @@ public class GoldMineWindowControl extends BaseWindowControl
         return ( ( GoldMineWindowView ) getView() ).isClosed();
     }
 
-    /**
-     * ======================================================================== Interface Methods
+    /*
+     * ========================================================================
+     * Interface Methods
      */
     /**
      * Interface method.Refresh the page with models
