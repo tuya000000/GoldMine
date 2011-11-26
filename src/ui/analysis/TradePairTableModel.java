@@ -18,6 +18,11 @@ import util.Helper;
  */
 public class TradePairTableModel extends DefaultTableModel
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6129475757339665575L;
+
     private List<TradePairable> myPairs = new ArrayList<TradePairable>();
 
     private final int COL_BUY_AMOUNT = 0;
@@ -39,7 +44,7 @@ public class TradePairTableModel extends DefaultTableModel
     private JTable myTable;
 
     private final String myColumnHeaders[] = {
-    // COL_BUY_AMOUNT
+                                              // COL_BUY_AMOUNT
                                               "买入数量",
                                               // COL_SELL_AMOUNT
                                               "卖出数量",
