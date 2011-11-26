@@ -109,20 +109,20 @@ public class DataRoot extends VirtualModelObject
     // ======================================================================
     // Members to manage Trade pair analysis
     // ======================================================================
-    private static TradePairAnalysisResult myTradePairAnalysisResult;
+    private TradePairAnalysisResult myTradePairAnalysisResult;
 
     /**
      * @param myTradePairAnalysisResult the myTradePairAnalysisResult to set
      */
-    public static void setTradePairAnalysisResult( TradePairAnalysisResult myTradePairAnalysisResult )
+    public void setTradePairAnalysisResult( TradePairAnalysisResult tradePairAnalysisResult )
     {
-        DataRoot.myTradePairAnalysisResult = myTradePairAnalysisResult;
+        myTradePairAnalysisResult = tradePairAnalysisResult;
     }
 
     /**
      * @return the myTradePairAnalysisResult
      */
-    public static TradePairAnalysisResult getTradePairAnalysisResult()
+    public TradePairAnalysisResult getTradePairAnalysisResult()
     {
         return myTradePairAnalysisResult;
     }

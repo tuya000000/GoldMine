@@ -44,7 +44,7 @@ public class TradePairTableModel extends DefaultTableModel
     private JTable myTable;
 
     private final String myColumnHeaders[] = {
-                                              // COL_BUY_AMOUNT
+    // COL_BUY_AMOUNT
                                               "买入数量",
                                               // COL_SELL_AMOUNT
                                               "卖出数量",

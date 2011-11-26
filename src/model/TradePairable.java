@@ -97,7 +97,7 @@ public class TradePairable extends VirtualModelObject
 
     public double getSellPrise()
     {
-        return mySellTrade != null ? mySellTrade.getPrise() : 0;
+        return mySellTrade != null ? Math.abs( mySellTrade.getPrise() ) : 0;
     }
 
     public double getBuyMoney()
