@@ -14,11 +14,18 @@ public class Helper
 
     public final static String CURRENCY_UNIT = "￥";
 
+    public final static String AMOUNT_UNIT = "克";
+
     public static String getCurrencyString( double money )
     {
         if( money >= 0 )
             return CURRENCY_UNIT + money;
         return "-" + CURRENCY_UNIT + Math.abs( money );
+    }
+
+    public static String getAmountString( double amount )
+    {
+        return String.valueOf( amount ) + AMOUNT_UNIT;
     }
 
     public static double getCurrencyValue( String str )

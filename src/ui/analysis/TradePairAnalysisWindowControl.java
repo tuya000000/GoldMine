@@ -18,6 +18,7 @@ import ui.BaseWindowControl;
  */
 public class TradePairAnalysisWindowControl extends BaseWindowControl
 {
+    TradePairAnalysisSummary mySummary = new TradePairAnalysisSummary();
 
     /**
      * 
@@ -62,15 +63,54 @@ public class TradePairAnalysisWindowControl extends BaseWindowControl
     }
 
     /* =========================================================
-     * Private methods
+     * Functional Methods
      */
-    private void analysisTrade( TradeRecord tr, TradePairAnalysisResult result )
+    /**
+     * @return
+     */
+    public TradePairAnalysisSummary generateSummary()
     {
-        if( result.getLastAnalysisedRecordTime() < tr.getTime() )
+        int totalBuyAmount = 0;
+        int totalSellAmount = 0;
+        double totalBuyMoney = 0;
+        double totalSellMoney = 0;
+        double pairedProfit = 0;
+        double unpairedCarryCost = 0;
+        int unpairedCarryAmount = 0;
+        for( TradePairable trpb : DataRoot.inst().getTradePairAnalysisResult().getResultList() )
         {
-            result.addResult( new TradePairable( tr ) );
-            result.setLastAnalysisedRecordTime( tr.getTime() );
+            totalBuyAmount += trpb.getBuyAmount();
+            totalSellAmount += trpb.getSellAmount();
+            totalBuyMoney += trpb.getBuyMoney();
+            totalSellMoney += trpb.getSellMoney();
+            if( !trpb.isPairable() )
+            {
+                TradePair trpa = ( TradePair ) trpb;
+                pairedProfit += ( trpa.getSellMoney() - trpa.getBuyMoney() );
+            }
+            else
+            {
+                unpairedCarryCost += trpb.getBuyMoney();
+                unpairedCarryAmount += trpb.getBuyAmount();
+            }
         }
+        mySummary.setTotalBuyAmount( totalBuyAmount );
+        mySummary.setTotalSellAmount( totalSellAmount );
+        mySummary.setTotalBuyMoney( totalBuyMoney );
+        mySummary.setTotalSellMoney( totalSellMoney );
+        mySummary.setCarryAmount( totalBuyAmount - totalSellAmount );
+        mySummary.setPairedTradeProfit( pairedProfit );
+        mySummary.setCarryCost( totalBuyMoney - totalSellMoney );
+        mySummary.setAvgCarryPrise( unpairedCarryCost / unpairedCarryAmount );
+        return mySummary;
+    }
+
+    /**
+     * @return
+     */
+    public TradePairAnalysisSummary getSummary()
+    {
+        return mySummary;
     }
 
     /**
@@ -133,6 +173,18 @@ public class TradePairAnalysisWindowControl extends BaseWindowControl
         //Save to Model;
         DataRoot.inst().getTradePairAnalysisResult().clearResults();
         DataRoot.inst().getTradePairAnalysisResult().addResults( tempList );
+    }
+
+    /* =========================================================
+     * Private methods
+     */
+    private void analysisTrade( TradeRecord tr, TradePairAnalysisResult result )
+    {
+        if( result.getLastAnalysisedRecordTime() < tr.getTime() )
+        {
+            result.addResult( new TradePairable( tr ) );
+            result.setLastAnalysisedRecordTime( tr.getTime() );
+        }
     }
 
     private boolean checkPairViaPrise( TradePairable buyTrpb, TradePairable sellTrpb )

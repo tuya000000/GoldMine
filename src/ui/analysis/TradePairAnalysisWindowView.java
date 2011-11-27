@@ -3,6 +3,7 @@
  */
 package ui.analysis;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,8 @@ import model.TradePairAnalysisResult;
 import model.TradePairable;
 import net.miginfocom.swing.MigLayout;
 import ui.BaseWindowView;
+import ui.LabelValuePane;
+import util.Helper;
 
 /**
  * @author tuya
@@ -30,6 +33,22 @@ public class TradePairAnalysisWindowView extends BaseWindowView implements Table
     private static final String myTitle = "交易配对分析";
 
     private JTable myTable;
+
+    private LabelValuePane myTotalBuyAmount;
+
+    private LabelValuePane myTotalSellAmount;
+
+    private LabelValuePane myCarryAmount;
+
+    private LabelValuePane myTotalBuyMoney;
+
+    private LabelValuePane myTotalSellMoney;
+
+    private LabelValuePane myPairedTradeProfit;
+
+    private LabelValuePane myCarryCost;
+
+    private LabelValuePane myAvgCarryPrise;
 
     private TradePairTableModel myTradePairTableModel;
 
@@ -52,11 +71,54 @@ public class TradePairAnalysisWindowView extends BaseWindowView implements Table
         this.setSize( 800, 600 );
         Container mainPane = getContentPane();
         mainPane.setLayout( new MigLayout( "", "12[]6[]" ) );
-        mainPane.add( buildTablePanel(), "wrap" );
+        mainPane.add( buildTablePanel(), "" );
+        mainPane.add( buildSummaryPanel(), "wrap" );
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout( new MigLayout( "", "0[]12[]" ) );
         buttonPanel.add( buildAnalysisButton(), "" );
         mainPane.add( buttonPanel, "wrap" );
+    }
+
+    /**
+     * @return
+     */
+    private Component buildSummaryPanel()
+    {
+        JPanel summaryPane = new JPanel();
+        summaryPane.setLayout( new MigLayout( "", "12[]6[]" ) );
+        myTotalBuyAmount = new LabelValuePane();
+        myTotalBuyAmount.setLabelText( "购入总量：" );
+        summaryPane.add( myTotalBuyAmount, "wrap" );
+
+        myTotalSellAmount = new LabelValuePane();
+        myTotalSellAmount.setLabelText( "卖出总量：" );
+        summaryPane.add( myTotalSellAmount, "wrap" );
+
+        myCarryAmount = new LabelValuePane();
+        myCarryAmount.setLabelText( "持有总量：" );
+        summaryPane.add( myCarryAmount, "wrap" );
+
+        myTotalBuyMoney = new LabelValuePane();
+        myTotalBuyMoney.setLabelText( "购入总金额：" );
+        summaryPane.add( myTotalBuyMoney, "wrap" );
+
+        myTotalSellMoney = new LabelValuePane();
+        myTotalSellMoney.setLabelText( "卖出总金额：" );
+        summaryPane.add( myTotalSellMoney, "wrap" );
+
+        myPairedTradeProfit = new LabelValuePane();
+        myPairedTradeProfit.setLabelText( "已配对交易收益：" );
+        summaryPane.add( myPairedTradeProfit, "wrap" );
+
+        myCarryCost = new LabelValuePane();
+        myCarryCost.setLabelText( "未配对交易成本：" );
+        summaryPane.add( myCarryCost, "wrap" );
+
+        myAvgCarryPrise = new LabelValuePane();
+        myAvgCarryPrise.setLabelText( "未配对交易均价：" );
+        summaryPane.add( myAvgCarryPrise, "wrap" );
+
+        return summaryPane;
     }
 
     @Override
@@ -64,6 +126,27 @@ public class TradePairAnalysisWindowView extends BaseWindowView implements Table
     {
         TradePairAnalysisResult tpar = ( TradePairAnalysisResult ) objs[0];
         refreshTableModel( tpar.getResultList() );
+    }
+
+    public void refreshSummaryPanel()
+    {
+        TradePairAnalysisSummary summary = ( ( TradePairAnalysisWindowControl ) getControl() ).getSummary();
+
+        myTotalBuyAmount.setValueText( Helper.getAmountString( summary.getTotalBuyAmount() ) );
+
+        myTotalSellAmount.setValueText( Helper.getAmountString( summary.getTotalSellAmount() ) );
+
+        myCarryAmount.setValueText( Helper.getAmountString( summary.getCarryAmount() ) );
+
+        myTotalBuyMoney.setValueText( Helper.getCurrencyString( summary.getTotalBuyMoney() ) );
+
+        myTotalSellMoney.setValueText( Helper.getCurrencyString( summary.getTotalSellMoney() ) );
+
+        myPairedTradeProfit.setValueText( Helper.getCurrencyString( summary.getPairedTradeProfit() ) );
+
+        myCarryCost.setValueText( Helper.getCurrencyString( summary.getCarryCost() ) );
+
+        myAvgCarryPrise.setValueText( Helper.getCurrencyString( summary.getAvgCarryPrise() ) );
     }
 
     /**
@@ -98,7 +181,9 @@ public class TradePairAnalysisWindowView extends BaseWindowView implements Table
     {
         List<TradePairable> trpas = myTradePairTableModel.getPairs();
         ( ( TradePairAnalysisWindowControl ) getControl() ).makePair( trpas );
+        ( ( TradePairAnalysisWindowControl ) getControl() ).generateSummary();
         myTradePairTableModel.refresh();
+        refreshSummaryPanel();
     }
 
     private JComponent buildTablePanel()
