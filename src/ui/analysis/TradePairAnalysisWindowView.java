@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,6 +33,8 @@ public class TradePairAnalysisWindowView extends BaseWindowView implements Table
 
     private TradePairTableModel myTradePairTableModel;
 
+    private JButton myAnalysisButton;
+
     /**
      * 
      */
@@ -50,6 +53,10 @@ public class TradePairAnalysisWindowView extends BaseWindowView implements Table
         Container mainPane = getContentPane();
         mainPane.setLayout( new MigLayout( "", "12[]6[]" ) );
         mainPane.add( buildTablePanel(), "wrap" );
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout( new MigLayout( "", "0[]12[]" ) );
+        buttonPanel.add( buildAnalysisButton(), "" );
+        mainPane.add( buttonPanel, "wrap" );
     }
 
     @Override
@@ -59,10 +66,40 @@ public class TradePairAnalysisWindowView extends BaseWindowView implements Table
         refreshTableModel( tpar.getResultList() );
     }
 
+    /**
+     * @param arg0
+     * @see javax.swing.event.TableModelListener#tableChanged(javax.swing.event.TableModelEvent)
+     */
+    public void tableChanged( TableModelEvent arg0 )
+    {
+    }
+
+    /**
+     * @param arg0
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    public void actionPerformed( ActionEvent evt )
+    {
+        if( evt.getSource().equals( myAnalysisButton ) )
+        {
+            makePair();
+        }
+    }
+
     /*
      * ========================================================================
      * Private Methods
      */
+
+    /**
+     * 
+     */
+    private void makePair()
+    {
+        List<TradePairable> trpas = myTradePairTableModel.getPairs();
+        ( ( TradePairAnalysisWindowControl ) getControl() ).makePair( trpas );
+        myTradePairTableModel.refresh();
+    }
 
     private JComponent buildTablePanel()
     {
@@ -79,6 +116,14 @@ public class TradePairAnalysisWindowView extends BaseWindowView implements Table
         return scrollPane;
     }
 
+    private JButton buildAnalysisButton()
+    {
+        myAnalysisButton = new JButton();
+        myAnalysisButton.setText( "开始分析" );
+        myAnalysisButton.addActionListener( this );
+        return myAnalysisButton;
+    }
+
     private void refreshTableModel( List<TradePairable> trpbs )
     {
         if( myTradePairTableModel == null )
@@ -88,19 +133,4 @@ public class TradePairAnalysisWindowView extends BaseWindowView implements Table
         myTradePairTableModel.setModel( trpbs );
     }
 
-    /**
-     * @param arg0
-     * @see javax.swing.event.TableModelListener#tableChanged(javax.swing.event.TableModelEvent)
-     */
-    public void tableChanged( TableModelEvent arg0 )
-    {
-    }
-
-    /**
-     * @param arg0
-     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-     */
-    public void actionPerformed( ActionEvent arg0 )
-    {
-    }
 }

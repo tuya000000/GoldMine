@@ -130,6 +130,14 @@ public class TradePairTableModel extends DefaultTableModel
     }
 
     /**
+     * @return the pairs
+     */
+    public List<TradePairable> getPairs()
+    {
+        return myPairs;
+    }
+
+    /**
      * Clears the TableModel data
      */
     public void clear()
@@ -150,7 +158,7 @@ public class TradePairTableModel extends DefaultTableModel
     /**
      * 
      */
-    private void refresh()
+    public void refresh()
     {
         this.setRowCount( myPairs.size() );
     }

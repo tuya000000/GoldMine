@@ -42,6 +42,19 @@ public class TradeRecord extends ModelObject
 
     /**
      * @return
+     * @see java.lang.Object#clone()
+     */
+    public TradeRecord clone()
+    {
+        TradeRecord cloneRecord = new TradeRecord();
+        cloneRecord.amount = amount;
+        cloneRecord.prise = prise;
+        cloneRecord.time = time;
+        return cloneRecord;
+    }
+
+    /**
+     * @return
      */
     public TradeType getType()
     {

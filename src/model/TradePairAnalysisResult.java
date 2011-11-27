@@ -54,9 +54,24 @@ public class TradePairAnalysisResult extends VirtualModelObject
         return myResultList;
     }
 
+    public void clearResults()
+    {
+        myResultList.clear();
+    }
+
     public void addResult( TradePairable trpa )
     {
         myResultList.add( trpa );
+    }
+
+    public void addResults( List<TradePairable> trpas )
+    {
+        myResultList.addAll( trpas );
+    }
+
+    public void removeResults( List<TradePairable> trpas )
+    {
+        myResultList.removeAll( trpas );
     }
 
     /**
