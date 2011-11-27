@@ -13,3 +13,13 @@ CSV file chooser should remember the path of last chosen file.
 2011.11.27
 TradeRecord table should be able to save changes DataRoot after user editing table.
 App should be able to sort the list via time.
+2011.11.28
+JUnit test case for TradePair and TradePairable.
+JUnit test case for TradeRecord and TradeRecordParser.
+JUnit test case for TradeRecordTableModel.
+JUnit test case for TradePairTableModel.
+JUnit test case for GoldMineWindowControl.
+JUnit test case for GoldMineWindowView.
+JUnit test case for TradePairAnalysisWindowControl.
+JUnit test case for TradePairAnalysisWindowView.
+JUnit test case for TradePairAnalysisSummary.
