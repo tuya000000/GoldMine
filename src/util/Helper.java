@@ -32,9 +32,21 @@ public class Helper
     {
         if( str.contains( CURRENCY_UNIT ) )
         {
-            return Double.valueOf( str.split( CURRENCY_UNIT )[1] );
+            return parseStringToDouble( str.split( CURRENCY_UNIT )[1] );
         }
-        return Double.valueOf( str );
+        return parseStringToDouble( str );
+    }
+
+    public static double parseStringToDouble( String str )
+    {
+        try
+        {
+            return Double.valueOf( str );
+        }
+        catch( NumberFormatException ex )
+        {
+            return 0;
+        }
     }
 
     public static String getObjectPrefix( String objectId )

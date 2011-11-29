@@ -38,7 +38,7 @@ public class TradeRecordTableModel extends DefaultTableModel
     private JTable myTable;
 
     private final boolean myColumnEditable[] = {
-                                                // COL_TRADE_TIME
+    // COL_TRADE_TIME
                                                 false,
                                                 // COL_TRADE_AMOUNT
                                                 true,
@@ -50,7 +50,7 @@ public class TradeRecordTableModel extends DefaultTableModel
                                                 false };
 
     private final String myColumnHeaders[] = {
-                                              // COL_TRADE_TIME
+    // COL_TRADE_TIME
                                               "交易时间",
                                               // COL_TRADE_AMOUNT
                                               "数量",
@@ -241,10 +241,13 @@ public class TradeRecordTableModel extends DefaultTableModel
 
     protected int parseIntegerInput( String str )
     {
-        if( str == null || str.isEmpty() )
+        try
+        {
+            return Integer.valueOf( str );
+        }
+        catch( NumberFormatException ex )
         {
             return 0;
         }
-        return Integer.valueOf( str );
     }
 }

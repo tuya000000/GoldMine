@@ -117,7 +117,8 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
     public void tableChanged( TableModelEvent e )
     {
         // TODO Auto-generated method stub
-        System.out.println( "TableChanged" );
+        System.out.println( "TableChanged:" + e.getColumn() + " [" + e.getFirstRow() + "-" + e.getLastRow() + "] " +
+            e.getType() + " " + e.getSource() );
     }
 
     @Override
