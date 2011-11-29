@@ -4,6 +4,8 @@
 package ui.analysis;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import model.DataRoot;
@@ -42,7 +44,15 @@ public class TradePairAnalysisWindowControl extends BaseWindowControl
             DataRoot.inst().setTradePairAnalysisResult( new TradePairAnalysisResult() );
         }
         TradePairAnalysisResult result = DataRoot.inst().getTradePairAnalysisResult();
-        for( TradeRecord tr : DataRoot.inst().getTradeRecords() )
+        List<TradeRecord> trs = DataRoot.inst().getTradeRecords();
+        Collections.sort( trs, new Comparator<TradeRecord>()
+        {
+            public int compare( TradeRecord tr1, TradeRecord tr2 )
+            {
+                return ( int ) ( tr1.getTime() - tr2.getTime() );
+            }
+        } );
+        for( TradeRecord tr : trs )
         {
             analysisTrade( tr, result );
         }

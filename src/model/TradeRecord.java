@@ -3,6 +3,10 @@
  */
 package model;
 
+import java.sql.Date;
+
+import util.Helper;
+
 /**
  * @author tuya
  */
@@ -125,4 +129,13 @@ public class TradeRecord extends ModelObject
         this.prise = prise;
     }
 
+    public String toString()
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append( "价格:" + Helper.getCurrencyString( Math.abs( prise ) ) + "\n" );
+        sb.append( ( prise > 0 ? "买入:" : "卖出:" ) + Helper.getAmountString( amount ) + "\n" );
+        Date date = new Date( time );
+        sb.append( date.toLocaleString() + "\n" );
+        return sb.toString();
+    }
 }
