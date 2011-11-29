@@ -186,6 +186,7 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
     private void readTradeRecordsFromFile()
     {
         JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory( new File( ".\\data" ) );
         FileNameExtensionFilter filter = new FileNameExtensionFilter( "TradeRecords in CSV", "csv" );
         chooser.setFileFilter( filter );
         int returnVal = chooser.showOpenDialog( this );
