@@ -48,26 +48,22 @@ public class XMLFileHandler
 
     public static void writeSampleXml( String fileName )
     {
-
         try
         {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = factory.newDocumentBuilder();
             Document doc = db.newDocument();
             Element root = doc.createElement( "root" );
+            Element trList = doc.createElement( "TradeRecordList" );
+            root.appendChild( trList );
             doc.appendChild( root );
             for( TradeRecord tr : DataRoot.inst().getTradeRecords() )
             {
-                Element trNode = doc.createElement( "TradeRecord" );
-                root.appendChild( trNode );
-                Date date = new Date( tr.getTime() );
-                trNode.setAttribute( "Time", date.toLocaleString() );
-                trNode.setAttribute( "Prise", String.valueOf( tr.getPrise() ) );
-                trNode.setAttribute( "Amount", String.valueOf( tr.getAmount() ) );
+                trList.appendChild( createTradeRecordNode( tr, doc ) );
             }
             FileOutputStream outStream = new FileOutputStream( fileName );
             OutputStreamWriter outWriter = new OutputStreamWriter( outStream );
-            callWriteXMLFile( doc, outWriter, "GB2312" );
+            callWriteXMLFile( doc, outWriter, "UTF-8" );
             outWriter.close();
             outStream.close();
 
@@ -87,6 +83,16 @@ public class XMLFileHandler
 
             e.printStackTrace();
         }
+    }
+
+    private static Element createTradeRecordNode( TradeRecord tr, Document doc )
+    {
+        Element trNode = doc.createElement( "TradeRecord" );
+        Date date = new Date( tr.getTime() );
+        trNode.setAttribute( "Time", date.toLocaleString() );
+        trNode.setAttribute( "Prise", String.valueOf( tr.getPrise() ) );
+        trNode.setAttribute( "Amount", String.valueOf( tr.getAmount() ) );
+        return trNode;
     }
 
     private static void callWriteXMLFile( Document doc, OutputStreamWriter w, String encoding )

@@ -5,6 +5,8 @@ package model;
 
 import java.util.Date;
 
+import org.w3c.dom.Element;
+
 /**
  * @author tuya
  */
@@ -14,6 +16,32 @@ public class TradeRecordParser
     private static final String AMOUNT_UNIT = "克";
 
     private static final int CALENDAR_YEAR_BASE = 1900;
+
+    public static TradeRecord parseXMLNode( Element trNode )
+    {
+        if( trNode.getNodeName().endsWith( "TradeRecord" ) )
+        {
+            TradeRecord tr = new TradeRecord();
+            String attr;
+            attr = trNode.getAttribute( "Time" );
+            if( attr != null )
+            {
+                tr.setTime( Date.parse( attr ) );
+            }
+            attr = trNode.getAttribute( "Prise" );
+            if( attr != null )
+            {
+                tr.setPrise( Double.valueOf( trNode.getAttribute( "Prise" ) ) );
+            }
+            attr = trNode.getAttribute( "Prise" );
+            if( attr != null )
+            {
+                tr.setAmount( Integer.valueOf( trNode.getAttribute( "Amount" ) ) );
+            }
+            return tr;
+        }
+        return null;
+    }
 
     @SuppressWarnings( "deprecation" )
     public static TradeRecord parseCSVFormatString( String str )
