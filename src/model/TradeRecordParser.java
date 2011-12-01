@@ -63,7 +63,14 @@ public class TradeRecordParser
         // BUT
         if( words[3].isEmpty() )
         {
-            tr.setAmount( parseAmount( words[2] ) );
+            try
+            {
+                tr.setAmount( parseAmount( words[2] ) );
+            }
+            catch( StringIndexOutOfBoundsException ex )
+            {
+                System.out.println( "Error parsing amount: " + words[2] );
+            }
             tr.setPrise( prise );
         }// SELL
         else
@@ -91,23 +98,30 @@ public class TradeRecordParser
     private static Date parseDate( String dateStr )
     {
         Date date = new Date();
-        String[] strs = dateStr.split( " " );
-        // yyyy-mm-dd
+        try
         {
-            String[] dateParts = strs[0].split( "-" );
+            String[] strs = dateStr.split( " " );
+            // yyyy-mm-dd
+            {
+                String[] dateParts = strs[0].split( "-" );
 
-            date.setYear( Integer.valueOf( dateParts[0] ) - CALENDAR_YEAR_BASE );
-            date.setMonth( Integer.valueOf( dateParts[1] ) - 1 );
-            date.setDate( Integer.valueOf( dateParts[2] ) );
+                date.setYear( Integer.valueOf( dateParts[0] ) - CALENDAR_YEAR_BASE );
+                date.setMonth( Integer.valueOf( dateParts[1] ) - 1 );
+                date.setDate( Integer.valueOf( dateParts[2] ) );
+            }
+
+            // hh:mm:ss
+            {
+                String[] timeParts = strs[1].split( ":" );
+
+                date.setHours( Integer.valueOf( timeParts[0] ) );
+                date.setMinutes( Integer.valueOf( timeParts[1] ) );
+                date.setSeconds( Integer.valueOf( timeParts[2] ) );
+            }
         }
-
-        // hh:mm:ss
+        catch( ArrayIndexOutOfBoundsException ex )
         {
-            String[] timeParts = strs[1].split( ":" );
-
-            date.setHours( Integer.valueOf( timeParts[0] ) );
-            date.setMinutes( Integer.valueOf( timeParts[1] ) );
-            date.setSeconds( Integer.valueOf( timeParts[2] ) );
+            System.out.println( "Error parsing:" + dateStr );
         }
         return date;
     }
