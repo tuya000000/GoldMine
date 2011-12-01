@@ -43,6 +43,8 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
 
     private JButton myTradePairAnalysisButton;
 
+    private JButton myInputWindowButton;
+
     public GoldMineWindowView()
     {
         super();
@@ -72,9 +74,10 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         mainPane.setLayout( new MigLayout( "", "12[]6[]" ) );
         mainPane.add( buildTablePanel(), "wrap" );
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout( new MigLayout( "", "0[]12[]" ) );
+        buttonPanel.setLayout( new MigLayout( "", "0[]12[]12[]" ) );
         buttonPanel.add( buildReadFileButton(), "" );
-        buttonPanel.add( buildTradePairAnalysisButton(), "wrap" );
+        buttonPanel.add( buildTradePairAnalysisButton(), "" );
+        buttonPanel.add( buildInputWindowButton(), "wrap" );
         mainPane.add( buttonPanel, "wrap" );
     }
 
@@ -132,6 +135,10 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         {
             openTradePairAnalysisWindow();
         }
+        else if( evt.getSource().equals( myInputWindowButton ) )
+        {
+            openTradeRecordInputWindow();
+        }
     }
 
     /*
@@ -179,9 +186,22 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         return myTradePairAnalysisButton;
     }
 
+    private JButton buildInputWindowButton()
+    {
+        myInputWindowButton = new JButton();
+        myInputWindowButton.setText( "输入交易记录..." );
+        myInputWindowButton.addActionListener( this );
+        return myInputWindowButton;
+    }
+
     private void openTradePairAnalysisWindow()
     {
         GlobalServices.activeService( TradePairAnalysisWindowControl.class );
+    }
+
+    private void openTradeRecordInputWindow()
+    {
+        GlobalServices.activeService( TradeRecordInputWindowControl.class );
     }
 
     private void readTradeRecordsFromFile()

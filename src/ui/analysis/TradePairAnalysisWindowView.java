@@ -183,6 +183,7 @@ public class TradePairAnalysisWindowView extends BaseWindowView implements Table
         ( ( TradePairAnalysisWindowControl ) getControl() ).makePair( trpas );
         ( ( TradePairAnalysisWindowControl ) getControl() ).generateSummary();
         myTradePairTableModel.refresh();
+        myAnalysisButton.setText( "继续分析" );
         refreshSummaryPanel();
     }
 
