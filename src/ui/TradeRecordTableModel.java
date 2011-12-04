@@ -41,9 +41,9 @@ public class TradeRecordTableModel extends DefaultTableModel
     // COL_TRADE_TIME
                                                 false,
                                                 // COL_TRADE_AMOUNT
-                                                true,
+                                                false,
                                                 // COL_TRADE_PRISE
-                                                true,
+                                                false,
                                                 // COL_TRADE_TYPE
                                                 false,
                                                 // COL_TRADE_MONEY
@@ -236,7 +236,7 @@ public class TradeRecordTableModel extends DefaultTableModel
 
     protected void refresh()
     {
-        this.setRowCount( myRecords.size() + 1 );
+        this.setRowCount( myRecords.size() );
     }
 
     protected int parseIntegerInput( String str )

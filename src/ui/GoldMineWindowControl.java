@@ -5,8 +5,10 @@ package ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import model.DataRoot;
+import model.TradeRecord;
 import file.CSVReader;
 
 /**
@@ -57,6 +59,12 @@ public class GoldMineWindowControl extends BaseWindowControl
     public void refresh()
     {
         getView().setModel( DataRoot.inst().getTradeRecords() );
+    }
+
+    public void addTradeRecordsFromInputWindow( List<TradeRecord> trs )
+    {
+        DataRoot.inst().addTradeRecords( trs );
+        refresh();
     }
 
     public void readTradeRecordsFromCSVFile( File csvFile )

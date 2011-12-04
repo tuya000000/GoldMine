@@ -43,11 +43,23 @@ public class TradeRecordParser
         return null;
     }
 
-    @SuppressWarnings( "deprecation" )
     public static TradeRecord parseCSVFormatString( String str )
     {
+        return parseFormatedString( str, "," );
+    }
+
+    public static TradeRecord parseFormatedString( String str, String splitRegex )
+    {
+        String[] words = str.split( splitRegex );
+
+        return parseSplittedWords( words );
+    }
+
+    @SuppressWarnings( "deprecation" )
+    public static TradeRecord parseSplittedWords( String[] words )
+    {
         TradeRecord tr = new TradeRecord();
-        String[] words = str.split( "," );
+
         String timeStr = words[5];
         if( !timeStr.isEmpty() )
         {
@@ -104,7 +116,10 @@ public class TradeRecordParser
             // yyyy-mm-dd
             {
                 String[] dateParts = strs[0].split( "-" );
-
+                if( dateParts.length != 3 )
+                {
+                    dateParts = strs[0].split( "/" );
+                }
                 date.setYear( Integer.valueOf( dateParts[0] ) - CALENDAR_YEAR_BASE );
                 date.setMonth( Integer.valueOf( dateParts[1] ) - 1 );
                 date.setDate( Integer.valueOf( dateParts[2] ) );

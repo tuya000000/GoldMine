@@ -30,6 +30,11 @@ public class BaseWindowControl implements GMService
 
     }
 
+    public void hide()
+    {
+        myView.setVisible( false );
+    }
+
     /**
      * @return the myView
      */
