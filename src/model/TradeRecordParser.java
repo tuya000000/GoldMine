@@ -17,6 +17,7 @@ public class TradeRecordParser
 
     private static final int CALENDAR_YEAR_BASE = 1900;
 
+    @SuppressWarnings( "deprecation" )
     public static TradeRecord parseXMLNode( Element trNode )
     {
         if( trNode.getNodeName().endsWith( "TradeRecord" ) )

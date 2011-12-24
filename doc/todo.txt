@@ -2,14 +2,14 @@
 App must be able to check if a CSV file is UTF-8 format before parsing it.
 -TradeRecordParser must be able to parse the stirng in "yyyy-mm-dd hh:mm:ss" format to Date correctly.
 -TradeRecord table should show a scroll bar when it's too long.
-App must be able to parse trade records file in XML format.
-App must be able to save date model file.
+-App must be able to parse trade records file in XML format.
+-App must be able to save date model file.
 -TradeRecord table should show a header row.
 User can delete a record from TradeRecord table.
 -App must be finished correctly(when main windows is closed, all threads should be terminated).
 -App can provide an analysis view. 
 TradeRecord table should show different font/cell background color for buy and sell trades.
-CSV file chooser should remember the path of last chosen file.
+File chooser should remember the path of last chosen file.
 2011.11.27
 TradeRecord table should be able to save changes DataRoot after user editing table.
 App should be able to sort the list via time.

@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -24,6 +25,7 @@ import model.TradeRecord;
 import net.miginfocom.swing.MigLayout;
 import service.GlobalServices;
 import ui.analysis.TradePairAnalysisWindowControl;
+import file.XMLFileHandler;
 
 /**
  * @author tuya
@@ -44,6 +46,8 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
     private JButton myTradePairAnalysisButton;
 
     private JButton myInputWindowButton;
+
+    private JButton mySaveFileButton;
 
     public GoldMineWindowView()
     {
@@ -79,6 +83,12 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         buttonPanel.add( buildTradePairAnalysisButton(), "" );
         buttonPanel.add( buildInputWindowButton(), "wrap" );
         mainPane.add( buttonPanel, "wrap" );
+
+        JPanel buttonPanel2 = new JPanel();
+        buttonPanel2.setLayout( new MigLayout( "", "0[]12[]12[]" ) );
+        buttonPanel.add( buildSaveFileButton(), "" );
+        mainPane.add( buttonPanel2, "wrap" );
+
     }
 
     /**
@@ -139,6 +149,10 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         {
             openTradeRecordInputWindow();
         }
+        else if( evt.getSource().equals( mySaveFileButton ) )
+        {
+            XMLFileHandler.saveAlltoXML( ".\\data\\save.xml" );
+        }
     }
 
     /*
@@ -173,7 +187,7 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
     private JButton buildReadFileButton()
     {
         myReadFileButton = new JButton();
-        myReadFileButton.setText( "Read Trade Records..." );
+        myReadFileButton.setText( "读取..." );
         myReadFileButton.addActionListener( this );
         return myReadFileButton;
     }
@@ -194,6 +208,14 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         return myInputWindowButton;
     }
 
+    private JButton buildSaveFileButton()
+    {
+        mySaveFileButton = new JButton();
+        mySaveFileButton.setText( "保存" );
+        mySaveFileButton.addActionListener( this );
+        return mySaveFileButton;
+    }
+
     private void openTradePairAnalysisWindow()
     {
         GlobalServices.activeService( TradePairAnalysisWindowControl.class );
@@ -208,13 +230,23 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
     {
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory( new File( ".\\data" ) );
-        FileNameExtensionFilter filter = new FileNameExtensionFilter( "TradeRecords in CSV", "csv" );
+        FileNameExtensionFilter filter = new FileNameExtensionFilter( "TradeRecords in XML", "xml" );
         chooser.setFileFilter( filter );
         int returnVal = chooser.showOpenDialog( this );
         if( returnVal == JFileChooser.APPROVE_OPTION )
         {
-            File csvFile = chooser.getSelectedFile();
-            ( ( GoldMineWindowControl ) getControl() ).readTradeRecordsFromCSVFile( csvFile );
+            File selectedFile = chooser.getSelectedFile();
+
+            // ( ( GoldMineWindowControl ) getControl() ).readTradeRecordsFromCSVFile( selectedFile );
+            try
+            {
+                ( ( GoldMineWindowControl ) getControl() ).readTradeRecordsFromXMLFile( selectedFile );
+            }
+            catch( IOException e )
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
 

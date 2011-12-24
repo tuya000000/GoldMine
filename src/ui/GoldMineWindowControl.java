@@ -10,6 +10,7 @@ import java.util.List;
 import model.DataRoot;
 import model.TradeRecord;
 import file.CSVReader;
+import file.XMLFileHandler;
 
 /**
  * @author tuya
@@ -82,4 +83,13 @@ public class GoldMineWindowControl extends BaseWindowControl
 
         refresh();
     }
+
+    public void readTradeRecordsFromXMLFile( File xmlFile ) throws IOException
+    {
+
+        XMLFileHandler.readFromXML( xmlFile );
+
+        refresh();
+    }
+
 }

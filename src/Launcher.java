@@ -1,6 +1,5 @@
 import service.GlobalServices;
 import ui.GoldMineWindowControl;
-import file.XMLFileHandler;
 
 /**
  * 
@@ -20,7 +19,6 @@ public class Launcher
 
         GoldMineWindowControl app = GlobalServices.activeService( GoldMineWindowControl.class );
         app.run();
-        XMLFileHandler.writeSampleXml( ".\\data\\save.xml" );
         app = null;
         GlobalServices.stopAllServices();
     }

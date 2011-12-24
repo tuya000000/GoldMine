@@ -25,6 +25,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import model.DataRoot;
 import model.TradeRecord;
+import model.TradeRecordParser;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -46,7 +47,44 @@ public class XMLFileHandler
         // TODO Auto-generated constructor stub
     }
 
-    public static void writeSampleXml( String fileName )
+    public static void readFromXML( File xmlFile )
+    {
+        try
+        {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = factory.newDocumentBuilder();
+            Document doc = db.parse( xmlFile );
+            Element root = doc.getDocumentElement();
+            NodeList childs = root.getElementsByTagName( "TradeRecordList" );
+            Element trList = ( Element ) childs.item( 0 );
+            NodeList nodes = trList.getChildNodes();
+            DataRoot.inst().clearTradeRecords();
+            int m = 1;
+            for( int i = 0; i < nodes.getLength(); i++ )
+            {
+                Node trNode = nodes.item( i );
+                if( trNode.getNodeType() == Node.ELEMENT_NODE )
+                {
+                    TradeRecord tr = TradeRecordParser.parseXMLNode( ( Element ) trNode );
+                    DataRoot.inst().addTradeRecord( tr );
+                }
+            }
+        }
+        catch( ParserConfigurationException e )
+        {
+            e.printStackTrace();
+        }
+        catch( SAXException e )
+        {
+            e.printStackTrace();
+        }
+        catch( IOException e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveAlltoXML( String fileName )
     {
         try
         {
@@ -89,7 +127,7 @@ public class XMLFileHandler
     {
         Element trNode = doc.createElement( "TradeRecord" );
         Date date = new Date( tr.getTime() );
-        trNode.setAttribute( "Time", date.toLocaleString() );
+        trNode.setAttribute( "Time", date.toGMTString() );
         trNode.setAttribute( "Prise", String.valueOf( tr.getPrise() ) );
         trNode.setAttribute( "Amount", String.valueOf( tr.getAmount() ) );
         return trNode;
