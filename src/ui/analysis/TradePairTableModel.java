@@ -44,7 +44,7 @@ public class TradePairTableModel extends DefaultTableModel
     private JTable myTable;
 
     private final String myColumnHeaders[] = {
-    // COL_BUY_AMOUNT
+                                              // COL_BUY_AMOUNT
                                               "买入数量",
                                               // COL_SELL_AMOUNT
                                               "卖出数量",
@@ -102,7 +102,7 @@ public class TradePairTableModel extends DefaultTableModel
     public Object getValueAt( int row, int col )
     {
         TradePairable trpb = myPairs.get( row );
-
+        double profit = trpb.getSellMoney() - trpb.getBuyMoney();
         switch( col )
         {
             case COL_BUY_AMOUNT:
@@ -114,9 +114,16 @@ public class TradePairTableModel extends DefaultTableModel
             case COL_SELL_PRISE:
                 return Helper.getCurrencyString( trpb.getSellPrise() );
             case COL_PROFIT:
-                return Helper.getCurrencyString( trpb.getSellMoney() - trpb.getBuyMoney() );
+                return Helper.getCurrencyString( profit );
             case COL_PROFIT_RATE:
-                return "-";
+                if( !trpb.isPairable() )
+                {
+                    return Helper.toPercentageFormat( profit / trpb.getBuyMoney() );
+                }
+                else
+                {
+                    return "-";
+                }
             default:
         }
         return "";

@@ -47,6 +47,7 @@ public class TradePairAnalysisWindowControl extends BaseWindowControl
         List<TradeRecord> trs = DataRoot.inst().getTradeRecords();
         Collections.sort( trs, new Comparator<TradeRecord>()
         {
+            @Override
             public int compare( TradeRecord tr1, TradeRecord tr2 )
             {
                 return ( int ) ( tr1.getTime() - tr2.getTime() );
@@ -200,6 +201,13 @@ public class TradePairAnalysisWindowControl extends BaseWindowControl
     private boolean checkPairViaPrise( TradePairable buyTrpb, TradePairable sellTrpb )
     {
         if( buyTrpb.getBuyPrise() <= sellTrpb.getSellPrise() )
+            return true;
+        return false;
+    }
+
+    private boolean checkPairViaTime( TradePairable buyTrpb, TradePairable sellTrpb )
+    {
+        if( buyTrpb.getBuyTime() < sellTrpb.getSellTime() )
             return true;
         return false;
     }

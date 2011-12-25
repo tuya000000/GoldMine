@@ -16,6 +16,16 @@ public class Helper
 
     public final static String AMOUNT_UNIT = "克";
 
+    public static String toPercentageFormat( double d )
+    {
+        String str = String.valueOf( d * 100 );
+        if( str.length() > 5 )
+        {
+            return str.substring( 0, 5 ) + "%";
+        }
+        return str + "%";
+    }
+
     public static String getCurrencyString( double money )
     {
         if( money >= 0 )

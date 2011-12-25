@@ -80,6 +80,11 @@ public class TradePairable extends VirtualModelObject
         mySellTrade = sellTrade;
     }
 
+    public long getBuyTime()
+    {
+        return myBuyTrade != null ? myBuyTrade.getTime() : 0;
+    }
+
     public int getBuyAmount()
     {
         return myBuyTrade != null ? myBuyTrade.getAmount() : 0;
@@ -88,6 +93,11 @@ public class TradePairable extends VirtualModelObject
     public double getBuyPrise()
     {
         return myBuyTrade != null ? myBuyTrade.getPrise() : 0;
+    }
+
+    public long getSellTime()
+    {
+        return mySellTrade != null ? mySellTrade.getTime() : 0;
     }
 
     public int getSellAmount()
