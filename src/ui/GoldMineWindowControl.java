@@ -17,6 +17,7 @@ import file.XMLFileHandler;
  */
 public class GoldMineWindowControl extends BaseWindowControl
 {
+    TradeSummary mySummary = new TradeSummary();
 
     /**
 	 * 

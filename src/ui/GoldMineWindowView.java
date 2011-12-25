@@ -49,6 +49,8 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
 
     private JButton mySaveFileButton;
 
+    private TradeSummaryPanelView mySummaryView;
+
     public GoldMineWindowView()
     {
         super();
@@ -76,7 +78,9 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         this.setSize( 800, 600 );
         Container mainPane = getContentPane();
         mainPane.setLayout( new MigLayout( "", "12[]6[]" ) );
-        mainPane.add( buildTablePanel(), "wrap" );
+        mainPane.add( buildTablePanel(), "" );
+        mySummaryView = new TradeSummaryPanelView();
+        mainPane.add( mySummaryView.buildContentArea(), "wrap" );
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout( new MigLayout( "", "0[]12[]12[]" ) );
         buttonPanel.add( buildReadFileButton(), "" );
@@ -88,7 +92,6 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         buttonPanel2.setLayout( new MigLayout( "", "0[]12[]12[]" ) );
         buttonPanel.add( buildSaveFileButton(), "" );
         mainPane.add( buttonPanel2, "wrap" );
-
     }
 
     /**
@@ -109,6 +112,7 @@ public class GoldMineWindowView extends BaseWindowView implements TableModelList
         @SuppressWarnings( "unchecked" )
         List<TradeRecord> trs = ( List<TradeRecord> ) objs[0];
         refreshTableModel( trs );
+        mySummaryView.refresh();
     }
 
     /**
